@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: snakegame
-        image: shivasai21/snakegame:vnc-v3
+        image: shivasai21/snakegame:web-v1
         imagePullPolicy: Always
 
         ports:
