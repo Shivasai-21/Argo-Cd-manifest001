@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: snakegame
-        image: shivasai21/snakegame:web-v1   # web-enabled image
+        image: shivasai21/snakegame:web-v2  # web-enabled image
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
