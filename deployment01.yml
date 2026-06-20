@@ -1,80 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: snakegame
-namespace: default
-labels:
-app: snakegame
+  name: snakegame
+  labels:
+    app: snakegame
 
 spec:
-replicas: 2
+  replicas: 1
 
-selector:
-matchLabels:
-app: snakegame
+  selector:
+    matchLabels:
+      app: snakegame
 
-template:
-metadata:
-labels:
-app: snakegame
+  template:
+    metadata:
+      labels:
+        app: snakegame
 
-```
-spec:
-  containers:
-  - name: snakegame
+    spec:
+      containers:
+      - name: snakegame
+        image: shivasai21/snakegame:vnc-v2
+        imagePullPolicy: Always
 
-    image: shivasai21/snakegame:vnc-v2
-    imagePullPolicy: Always
+        ports:
+        - containerPort: 5900
 
-    ports:
-    - containerPort: 5900
+        env:
+        - name: DISPLAY
+          value: ":99"
 
-    env:
-    - name: DISPLAY
-      value: ":99"
-
-    - name: XDG_RUNTIME_DIR
-      value: "/tmp"
-
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "128Mi"
-
-      limits:
-        cpu: "500m"
-        memory: "512Mi"
-
-    readinessProbe:
-      tcpSocket:
-        port: 5900
-      initialDelaySeconds: 20
-      periodSeconds: 10
-
-    livenessProbe:
-      tcpSocket:
-        port: 5900
-      initialDelaySeconds: 30
-      periodSeconds: 15
-```
+        - name: XDG_RUNTIME_DIR
+          value: "/tmp"
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-name: snakegame
-namespace: default
+  name: snakegame
 
 spec:
-selector:
-app: snakegame
+  selector:
+    app: snakegame
 
-type: LoadBalancer
+  type: LoadBalancer
 
-ports:
-
-* name: vnc
-  protocol: TCP
-  port: 5900
-  targetPort: 5900
+  ports:
+  - protocol: TCP
+    port: 5900
+    targetPort: 5900
