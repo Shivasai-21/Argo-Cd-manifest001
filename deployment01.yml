@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-helm-app
-        image: shivasai21/movie:latest  # replace with your image
+        image: shaikmustafa/mytetrisgame:v1  # replace with your image
         ports:
         - containerPort: 80
         resources:
