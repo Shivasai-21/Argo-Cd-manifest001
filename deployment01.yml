@@ -1,51 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: snakegame
-  labels:
-    app: snakegame
+name: snakegame
+labels:
+app: snakegame
 
 spec:
-  replicas: 1
+replicas: 1
 
-  selector:
-    matchLabels:
-      app: snakegame
+selector:
+matchLabels:
+app: snakegame
 
-  template:
-    metadata:
-      labels:
-        app: snakegame
+template:
+metadata:
+labels:
+app: snakegame
 
-    spec:
-      containers:
-      - name: snakegame
-        image: shivasai21/snakegame:web-v1
-        imagePullPolicy: Always
 
-        ports:
-        - containerPort: 5900
+spec:
+  containers:
+  - name: snakegame
+    image: shivasai21/snakegame:web-v1
+    imagePullPolicy: Always
 
-        env:
-        - name: DISPLAY
-          value: ":99"
+    ports:
+    - containerPort: 5000
 
-        - name: XDG_RUNTIME_DIR
-          value: "/tmp"
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: snakegame
+name: snakegame
 
 spec:
-  selector:
-    app: snakegame
+selector:
+app: snakegame
 
-  type: LoadBalancer
+type: LoadBalancer
 
-  ports:
-  - protocol: TCP
-    port: 5900
-    targetPort: 5000
+ports:
+
+* protocol: TCP
+  port: 80
+  targetPort: 5000
