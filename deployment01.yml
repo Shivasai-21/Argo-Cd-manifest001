@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: snakegame
+  namespace: default        # <-- add namespace here
   labels:
     app: snakegame
 spec:
@@ -16,7 +17,7 @@ spec:
     spec:
       containers:
       - name: snakegame
-        image: shivasai21/snakegame:vnc   # <-- use your new image tag here
+        image: shivasai21/snakegame:vnc   # build & push this improved image
         ports:
         - containerPort: 5900             # VNC port
         resources:
@@ -31,6 +32,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: snakegame
+  namespace: default        # <-- add namespace here
   labels:
     app: snakegame
 spec:
