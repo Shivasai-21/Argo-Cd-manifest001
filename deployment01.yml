@@ -1,48 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: snakegame
-labels:
-app: snakegame
-
+  name: snakegame
+  namespace: default
+  labels:
+    app: snakegame
 spec:
-replicas: 1
-
-selector:
-matchLabels:
-app: snakegame
-
-template:
-metadata:
-labels:
-app: snakegame
-
-
-spec:
-  containers:
-  - name: snakegame
-    image: shivasai21/snakegame:web-v1
-    imagePullPolicy: Always
-
-    ports:
-    - containerPort: 5000
-
-
+  replicas: 1
+  selector:
+    matchLabels:
+      app: snakegame
+  template:
+    metadata:
+      labels:
+        app: snakegame
+    spec:
+      containers:
+      - name: snakegame
+        image: shivasai21/snakegame:web-v1   # web-enabled image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-name: snakegame
-
+  name: snakegame
+  namespace: default
+  labels:
+    app: snakegame
 spec:
-selector:
-app: snakegame
-
-type: LoadBalancer
-
-ports:
-
-* protocol: TCP
-  port: 80
-  targetPort: 5000
+  type: LoadBalancer
+  selector:
+    app: snakegame
+  ports:
+  - protocol: TCP
+    port: 80        # external port
+    targetPort: 5000 # forwards to container port
