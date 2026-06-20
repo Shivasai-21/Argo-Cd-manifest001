@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-helm-app
-        image: shivasai21/snakegame:latest  # replace with your image
+        image: shivasai21/snakegame:v2  # replace with your image
         ports:
         - containerPort: 80
         resources:
